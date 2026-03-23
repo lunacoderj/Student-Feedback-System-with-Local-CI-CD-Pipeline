@@ -4,11 +4,7 @@ Student Feedback System - Flask Application
 from flask import Flask, render_template, request, redirect, url_for, flash
 from database import init_db, insert_feedback, get_all_feedback
 
-app = Flask(
-    __name__,
-    template_folder='../templates',
-    static_folder='../static'
-)
+app = Flask(__name__)
 app.secret_key = 'student-feedback-secret-key-2026'
 
 

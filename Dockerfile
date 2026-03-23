@@ -16,6 +16,9 @@ COPY app/ /app/
 COPY templates/ /app/templates/
 COPY static/ /app/static/
 
+# Ensure write permissions for SQLite database
+RUN mkdir -p /app && chmod 777 /app
+
 # Expose Flask port
 EXPOSE 5000
 
