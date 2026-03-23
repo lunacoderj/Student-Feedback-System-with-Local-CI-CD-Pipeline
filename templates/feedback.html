@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Feedback | Student Feedback System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 All Feedback</h1>
+            <p class="subtitle">Complete list of student feedback submissions</p>
+        </header>
+
+        <section class="card feedback-section">
+            {% if feedbacks %}
+                <div class="feedback-list">
+                    {% for fb in feedbacks %}
+                        <div class="feedback-item">
+                            <div class="feedback-header">
+                                <span class="feedback-name">👤 {{ fb['name'] }}</span>
+                                <span class="feedback-date">{{ fb['created_at'] }}</span>
+                            </div>
+                            <p class="feedback-text">{{ fb['feedback'] }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>No feedback submitted yet.</p>
+                </div>
+            {% endif %}
+        </section>
+
+        <div class="nav-link">
+            <a href="/">← Back to Feedback Form</a>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Student Feedback System | Built with Flask &amp; SQLite</p>
+        </footer>
+    </div>
+</body>
+</html>

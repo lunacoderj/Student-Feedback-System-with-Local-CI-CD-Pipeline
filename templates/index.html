@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Feedback System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>📝 Student Feedback System</h1>
+            <p class="subtitle">Share your thoughts and help us improve</p>
+        </header>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Feedback Form -->
+        <section class="card form-section">
+            <h2>Submit Your Feedback</h2>
+            <form action="/submit" method="POST" id="feedbackForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="feedback">Your Feedback</label>
+                    <textarea
+                        id="feedback"
+                        name="feedback"
+                        rows="5"
+                        placeholder="Write your feedback here..."
+                        required
+                    ></textarea>
+                </div>
+                <button type="submit" id="submitBtn">Submit Feedback</button>
+            </form>
+        </section>
+
+        <!-- Feedback List -->
+        <section class="card feedback-section">
+            <h2>All Feedback ({{ feedbacks|length }})</h2>
+            {% if feedbacks %}
+                <div class="feedback-list">
+                    {% for fb in feedbacks %}
+                        <div class="feedback-item">
+                            <div class="feedback-header">
+                                <span class="feedback-name">👤 {{ fb['name'] }}</span>
+                                <span class="feedback-date">{{ fb['created_at'] }}</span>
+                            </div>
+                            <p class="feedback-text">{{ fb['feedback'] }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>No feedback submitted yet. Be the first!</p>
+                </div>
+            {% endif %}
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 Student Feedback System | Built with Flask &amp; SQLite</p>
+        </footer>
+    </div>
+</body>
+</html>
